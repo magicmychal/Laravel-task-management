@@ -21,6 +21,7 @@
                 <option value="3">Three</option>
             </select>
         </div>
+        <button type="submit" class="btn btn-outline-success" style="width: 100%">Add new task</button>
     </form>
 
 @endsection

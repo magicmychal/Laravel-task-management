@@ -5,7 +5,8 @@
     <form action="">
         <div class="form-group">
             <label for="task-title">Task title</label>
-            <input type="text" class="form-control" id="task-title" placeholder="type... &quot;Hire new PHP Developer&quot;">
+            <input type="text" class="form-control" id="task-title"
+                   placeholder="type... &quot;Hire new PHP Developer&quot;">
         </div>
         <div class="form-group">
             <label for="priority-number">Priority</label>
@@ -14,11 +15,14 @@
         <div class="form-group">
             <label for="project-select">Project</label>
             <select id="project-select" class="custom-select" required>
-                <option value="">Click to select the project</option>
                 <!-- TODO: Fetch projects -->
-                <option value="1">Project 1</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                @if(count($projects) >= 1)
+                    @foreach($projects as $project)
+                        <option value="{{$project->projectId}}">{{$project->projectName}}</option>
+                    @endforeach
+                @else
+                    <option value="">--- NO PROJECTS ADDED ---</option>
+                @endif
             </select>
         </div>
         <button type="submit" class="btn btn-outline-success" style="width: 100%">Add new task</button>
@@ -40,11 +44,14 @@
     <div class="form-group">
         <label for="project-select">Project</label>
         <select id="project-select" class="custom-select" required>
-            <option value="">Click to select the project</option>
             <!-- TODO: Fetch projects -->
-            <option value="1">Project 1</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            @if(count($projects) >= 1)
+                @foreach($projects as $project)
+                    <option value="{{$project->projectId}}">{{$project->projectName}}</option>
+                @endforeach
+            @else
+                <option value="">--- NO PROJECTS ADDED ---</option>
+            @endif
         </select>
     </div>
     <div class="card">

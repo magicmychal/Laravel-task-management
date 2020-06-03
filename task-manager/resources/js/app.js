@@ -5,7 +5,11 @@ require('bootstrap-input-spinner/src/bootstrap-input-spinner');
 $(document).ready(function(){
     // init the fancy number value input
     $("input[type='number']").inputSpinner()
-    // generate CSRF token with every submit
+
+    // get the tasks for default project
+
+
+    // add new task
     $('#add-new-task-button').click(function(e){
         e.preventDefault();
         $.ajaxSetup({
@@ -19,7 +23,7 @@ $(document).ready(function(){
             data: {
                 title: $('#task-title').val(),
                 priority: $('#priority-number').val(),
-                projectId: $('#project-select').val()
+                project_id: $('#project-select').val()
             },
             success: function(result){
                 $('#add-new-task-success-alert').addClass('show');

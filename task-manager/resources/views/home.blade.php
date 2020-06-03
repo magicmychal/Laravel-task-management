@@ -53,7 +53,7 @@
             <!-- TODO: Fetch projects -->
             @if(count($projects) >= 1)
                 @foreach($projects as $project)
-                    <option value="{{$project->projectId}}">{{$project->projectName}}</option>
+                    <option value="{{$project->project_id}}">{{$project->projectName}}</option>
                 @endforeach
             @else
                 <option value="">--- NO PROJECTS ADDED ---</option>

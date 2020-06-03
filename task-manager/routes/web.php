@@ -17,4 +17,5 @@ Route::get('/', 'HomeController@index');
 
 Route::resource('/project', 'ProjectsController');
 Route::resource('/task', 'TasksController');
+Route::get('task/byProject/{project_id}', 'TasksController@indexByProject')->name('task.indexByProject');
 

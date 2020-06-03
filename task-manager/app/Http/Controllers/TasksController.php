@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,6 @@ class TasksController extends Controller
      */
     public function index()
     {
-        // returns all tasks as a JSON string
-        $tasks = Task::all();
-        return response()->json(array('msg'=> $tasks), 200);
     }
 
     /**
@@ -40,13 +38,13 @@ class TasksController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'priority' => 'required',
-            'projectId' => 'required'
+            'project_id' => 'required'
         ]);
 
         $task = new Task;
         $task->title = $request->input('title');
         $task->priority = $request->input('priority');
-        $task->projectId = $request->input('projectId');
+        $task->project_id = $request->input('project_id');
         $task->save();
 
         // TODO: add exceptions
@@ -96,5 +94,17 @@ class TasksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $projectId
+     * @return \Illuminate\Http\Response
+     */
+    public function indexByProject($projectId)
+    {
+        $project = Project::find($projectId);
+        return response()->json(array('tasks'=> $project->tasks), 200);
     }
 }

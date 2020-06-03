@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>{{config('app.name', 'Task Manager')}}</title>
     <meta name="author" content="Michał Pawlicki">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 </head>
 

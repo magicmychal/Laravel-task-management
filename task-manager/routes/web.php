@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 
 Route::resource('/project', 'ProjectsController');
-Route::resource('/tasks', 'TasksController');
+Route::resource('/task', 'TasksController');
 

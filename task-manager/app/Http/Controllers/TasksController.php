@@ -37,7 +37,20 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'priority' => 'required',
+            'projectId' => 'required'
+        ]);
+
+        $task = new Task;
+        $task->title = $request->input('title');
+        $task->priority = $request->input('priority');
+        $task->projectId = $request->input('projectId');
+        $task->save();
+
+        // TODO: add exceptions
+        return response()->json(['success'=>'Task created']);
     }
 
     /**

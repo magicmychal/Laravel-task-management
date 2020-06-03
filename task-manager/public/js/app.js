@@ -41277,7 +41277,7 @@ $(document).ready(function () {
   function modifyTasksHTML(tasks) {
     $.each(tasks.tasks, function (i, val) {
       console.log('task', val);
-      var html = "<li class=\"list-group-item\">".concat(val.title, "</li>");
+      var html = "<li class=\"list-group-item d-flex justify-content-between align-items-center\">\n                            ".concat(val.title, "\n                            <div>\n                            <span class=\"badge badge-pill badge-light\">Edit</span>\n                            <span class=\"badge badge-pill badge-light\">Delete</span>\n                            </div>\n                        </li>");
       $('ul#task-list').prepend(html);
     });
   } // add new task

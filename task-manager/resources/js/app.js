@@ -18,14 +18,20 @@ $(document).ready(function () {
 
 
     // make the list sortable
-    const taskList = document.getElementById('task-list')
-   Sortable.create(taskList);
+    const taskList = document.getElementById('task-list');
+    Sortable.create(taskList);
 
     // display task blueprint
-    function modifyTasksHTML(tasks){
+    function modifyTasksHTML(tasks) {
         $.each(tasks.tasks, function (i, val) {
-            console.log('task', val)
-            let html = `<li class="list-group-item">${val.title}</li>`
+            console.log('task', val);
+            let html = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${val.title}
+                            <div>
+                            <span class="badge badge-pill badge-light">Edit</span>
+                            <span class="badge badge-pill badge-light">Delete</span>
+                            </div>
+                        </li>`;
             $('ul#task-list').prepend(html)
         })
     }

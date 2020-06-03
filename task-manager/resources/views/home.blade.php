@@ -48,12 +48,12 @@
 @section('task-view')
     <h2>Task list</h2>
     <div class="form-group">
-        <label for="project-select">Project</label>
-        <select id="project-select" class="custom-select" required>
+        <label for="project-select-for-view">Project</label>
+        <select id="project-select-for-view" class="custom-select" required>
             <!-- TODO: Fetch projects -->
             @if(count($projects) >= 1)
                 @foreach($projects as $project)
-                    <option value="{{$project->project_id}}">{{$project->projectName}}</option>
+                    <option value="{{$project->id}}">{{$project->projectName}}</option>
                 @endforeach
             @else
                 <option value="">--- NO PROJECTS ADDED ---</option>
@@ -61,10 +61,8 @@
         </select>
     </div>
     <div class="card">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+        <ul class="list-group" id="task-list">
+            <!-- loaded dynamical -->
         </ul>
     </div>
 @endsection

@@ -36,7 +36,7 @@ $(document).ready(function () {
                 setTimeout(function () {
                     $('#add-new-task-success-alert').removeClass('show')
                 }, 2000);
-
+                getTasksByProject($('#project-select').val())
             }
         });
     });
@@ -57,7 +57,6 @@ $(document).ready(function () {
                 projectName: $('#new-project-name').val(),
             },
             success: function (result) {
-                console.log('results', result)
                 $('#add-new-project-success-alert').addClass('show');
                 // wait a few seconds and remove the alert
                 setTimeout(function () {
@@ -110,12 +109,10 @@ function modifyTasksHTML(tasks) {
 
     // remove task
     $('.task-delete').on("click", function () {
-        console.log('halo', $(this).data('taskid'))
         // send delete request
         if (removeTask($(this).data('taskid')) == true){
-            console.log('true')
+            getTasksByProject($('#project-select-for-view').val())
         }
-        // remove from the layout
     })
 }
 

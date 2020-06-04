@@ -41288,6 +41288,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $('#add-new-task-success-alert').removeClass('show');
         }, 2000);
+        getTasksByProject($('#project-select').val());
       }
     });
   }); // add new project
@@ -41306,7 +41307,6 @@ $(document).ready(function () {
         projectName: $('#new-project-name').val()
       },
       success: function success(result) {
-        console.log('results', result);
         $('#add-new-project-success-alert').addClass('show'); // wait a few seconds and remove the alert
 
         setTimeout(function () {
@@ -41349,12 +41349,10 @@ function modifyTasksHTML(tasks) {
 
 
   $('.task-delete').on("click", function () {
-    console.log('halo', $(this).data('taskid')); // send delete request
-
+    // send delete request
     if (removeTask($(this).data('taskid')) == true) {
-      console.log('true');
-    } // remove from the layout
-
+      getTasksByProject($('#project-select-for-view').val());
+    }
   });
 }
 
@@ -41440,8 +41438,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/Users/micha/Documents/Repositories/task-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/Users/micha/Documents/Repositories/task-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/Users/micha/Documents/Repositories/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/Users/micha/Documents/Repositories/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

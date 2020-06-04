@@ -10,7 +10,8 @@
         </div>
         <div class="form-group">
             <label for="priority-number">Priority</label>
-            <input id="priority-number" type="number" class="form-control" value="0" min="0" max="1000" step="5" required/>
+            <input id="priority-number" type="number" class="form-control" value="0" min="0" max="1000" step="5"
+                   required/>
         </div>
         <div class="form-group">
             <label for="project-select">Project</label>
@@ -27,21 +28,35 @@
         </div>
         <button id="add-new-task-button" class="btn btn-outline-success" style="width: 100%">Add new task</button>
     </form>
-    <div id="add-new-task-success-alert" class="alert alert-success alert-dismissible fade" role="alert" style="margin-top: 10px">
+    <div id="add-new-task-success-alert" class="alert alert-success alert-dismissible fade" role="alert"
+         style="margin-top: 10px">
         <strong>Way to go!</strong> You added a new task
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <hr>
-    <h2>Add new project</h2>
-    <form>
-        <div class="form-group">
-            <lebel for="project-name">Project name</lebel>
-            <input type="text" id="project-name" class="form-control" required>
+    <button type="button" class="btn btn-outline-secondary" data-toggle="collapse"
+            data-target="#add-new-project-collapse" aria-expanded="false" aria-controls="add-new-project-collapse"
+            style="width: 100%">
+        Add new project
+    </button>
+    <div class="collapse" id="add-new-project-collapse">
+        <form>
+            <div class="form-group">
+                <lebel for="project-name">Project name</lebel>
+                <input type="text" id="new-project-name" class="form-control" required>
+            </div>
+            <button id="add-new-project-button" class="btn btn-outline-success" style="width: 100%">Confirm</button>
+        </form>
+        <div id="add-new-project-success-alert" class="alert alert-success alert-dismissible fade" role="alert"
+             style="margin-top: 10px">
+            <strong>Way to go!</strong> You added a new project
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <button type="submit" class="btn btn-outline-success" style="width: 100%">Add new task</button>
-    </form>
+    </div>
 
 @endsection
 

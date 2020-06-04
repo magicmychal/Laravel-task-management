@@ -37,7 +37,15 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'projectName' => 'required'
+        ]);
+
+        $project = new Project;
+        $project->projectName = $request->input('projectName');
+        $project->save();
+
+        return response()->json(['success'=>'Project created']);
     }
 
     /**

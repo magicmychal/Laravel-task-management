@@ -41276,7 +41276,6 @@ $(document).ready(function () {
 
   function modifyTasksHTML(tasks) {
     $.each(tasks.tasks, function (i, val) {
-      console.log('task', val);
       var html = "<li class=\"list-group-item d-flex justify-content-between align-items-center\">\n                            ".concat(val.title, "\n                            <div>\n                            <span class=\"badge badge-pill badge-light\">Edit</span>\n                            <span class=\"badge badge-pill badge-light\">Delete</span>\n                            </div>\n                        </li>");
       $('ul#task-list').prepend(html);
     });
@@ -41303,6 +41302,30 @@ $(document).ready(function () {
 
         setTimeout(function () {
           $('#add-new-task-success-alert').removeClass('show');
+        }, 2000);
+      }
+    });
+  }); // add new project
+
+  $('#add-new-project-button').click(function (e) {
+    e.preventDefault();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      url: "/project",
+      method: 'POST',
+      data: {
+        projectName: $('#new-project-name').val()
+      },
+      success: function success(result) {
+        console.log('results', result);
+        $('#add-new-project-success-alert').addClass('show'); // wait a few seconds and remove the alert
+
+        setTimeout(function () {
+          $('#add-new-project-success-alert').removeClass('show');
         }, 2000);
       }
     });

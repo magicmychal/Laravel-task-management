@@ -24,7 +24,6 @@ $(document).ready(function () {
     // display task blueprint
     function modifyTasksHTML(tasks) {
         $.each(tasks.tasks, function (i, val) {
-            console.log('task', val);
             let html = `<li class="list-group-item d-flex justify-content-between align-items-center">
                             ${val.title}
                             <div>
@@ -62,6 +61,34 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    // add new project
+    $('#add-new-project-button').click(function (e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "/project",
+            method: 'POST',
+            data: {
+                projectName: $('#new-project-name').val(),
+            },
+            success: function (result) {
+                console.log('results', result)
+                $('#add-new-project-success-alert').addClass('show');
+                // wait a few seconds and remove the alert
+                setTimeout(function () {
+                    $('#add-new-project-success-alert').removeClass('show')
+                }, 2000);
+
+            }
+        });
+    });
+
 });
 
 

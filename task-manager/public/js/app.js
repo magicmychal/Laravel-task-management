@@ -41314,10 +41314,9 @@ $(document).ready(function () {
         }, 2000);
       }
     });
-  }); // select poject to display
+  }); // select project to display
 
   $("#project-select-for-view").change(function () {
-    console.log('val', $(this).val());
     getTasksByProject($(this).val());
   });
 }); // get tasks
@@ -41343,10 +41342,35 @@ function modifyTasksHTML(tasks) {
     $('ul#task-list').prepend(html);
   } else {
     $.each(tasks.tasks, function (i, val) {
-      var html = "<li class=\"list-group-item d-flex justify-content-between align-items-center\">\n                            ".concat(val.title, "\n                            <div>\n                            <span class=\"badge badge-pill badge-light\">Edit</span>\n                            <span class=\"badge badge-pill badge-light\">Delete</span>\n                            </div>\n                        </li>");
+      var html = "<li class=\"list-group-item d-flex justify-content-between align-items-center\">\n                            ".concat(val.title, "\n                            <div>\n                            <a class=\"badge badge-pill badge-light task-delete\" data-taskId=\"").concat(val.id, "\">Delete</a>\n                            </div>\n                        </li>");
       $('ul#task-list').prepend(html);
     });
-  }
+  } // remove task
+
+
+  $('.task-delete').on("click", function () {
+    console.log('halo', $(this).data('taskid')); // send delete request
+
+    if (removeTask($(this).data('taskid')) == true) {
+      console.log('true');
+    } // remove from the layout
+
+  });
+}
+
+function removeTask(taskId) {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    url: "/task/" + taskId,
+    method: 'DELETE',
+    success: function success(result) {
+      return true;
+    }
+  });
 }
 
 function refreshProjectsList() {}

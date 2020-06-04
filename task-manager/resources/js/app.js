@@ -68,9 +68,8 @@ $(document).ready(function () {
         });
     });
 
-    // select poject to display
+    // select project to display
     $("#project-select-for-view").change(function(){
-       console.log('val', $(this).val())
         getTasksByProject($(this).val())
     });
 
@@ -102,13 +101,37 @@ function modifyTasksHTML(tasks) {
             let html = `<li class="list-group-item d-flex justify-content-between align-items-center">
                             ${val.title}
                             <div>
-                            <span class="badge badge-pill badge-light">Edit</span>
-                            <span class="badge badge-pill badge-light">Delete</span>
+                            <a class="badge badge-pill badge-light task-delete" data-taskId="${val.id}">Delete</a>
                             </div>
                         </li>`;
             $('ul#task-list').prepend(html)
         })
     }
+
+    // remove task
+    $('.task-delete').on("click", function () {
+        console.log('halo', $(this).data('taskid'))
+        // send delete request
+        if (removeTask($(this).data('taskid')) == true){
+            console.log('true')
+        }
+        // remove from the layout
+    })
+}
+
+function removeTask(taskId) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/task/"+taskId,
+        method: 'DELETE',
+        success: function (result) {
+            return true;
+        }
+    });
 }
 
 function refreshProjectsList() {

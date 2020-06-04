@@ -41262,25 +41262,10 @@ $(document).ready(function () {
   // init the fancy number value input
   $("input[type='number']").inputSpinner(); // get the tasks for default project
 
-  $.ajax({
-    url: "/task/byProject/" + $('#project-select-for-view').val(),
-    contentType: "application/json",
-    dataType: 'json',
-    success: function success(result) {
-      modifyTasksHTML(result);
-    }
-  }); // make the list sortable
+  getTasksByProject($('#project-select-for-view').val()); // make the list sortable
 
   var taskList = document.getElementById('task-list');
-  sortablejs__WEBPACK_IMPORTED_MODULE_0__["default"].create(taskList); // display task blueprint
-
-  function modifyTasksHTML(tasks) {
-    $.each(tasks.tasks, function (i, val) {
-      var html = "<li class=\"list-group-item d-flex justify-content-between align-items-center\">\n                            ".concat(val.title, "\n                            <div>\n                            <span class=\"badge badge-pill badge-light\">Edit</span>\n                            <span class=\"badge badge-pill badge-light\">Delete</span>\n                            </div>\n                        </li>");
-      $('ul#task-list').prepend(html);
-    });
-  } // add new task
-
+  sortablejs__WEBPACK_IMPORTED_MODULE_0__["default"].create(taskList); // add new task
 
   $('#add-new-task-button').click(function (e) {
     e.preventDefault();
@@ -41329,8 +41314,42 @@ $(document).ready(function () {
         }, 2000);
       }
     });
+  }); // select poject to display
+
+  $("#project-select-for-view").change(function () {
+    console.log('val', $(this).val());
+    getTasksByProject($(this).val());
   });
-});
+}); // get tasks
+
+function getTasksByProject(projectId) {
+  $.ajax({
+    url: "/task/byProject/" + projectId,
+    contentType: "application/json",
+    dataType: 'json',
+    success: function success(result) {
+      modifyTasksHTML(result);
+    }
+  });
+} // display task blueprint
+
+
+function modifyTasksHTML(tasks) {
+  // remove tasks view first
+  $('#task-list').empty();
+
+  if (tasks.tasks.length == 0) {
+    var html = "<div class=\"alert alert-info\" role=\"alert\">\n                      No tasks in this project! Is it good or bad?\n                    </div>";
+    $('ul#task-list').prepend(html);
+  } else {
+    $.each(tasks.tasks, function (i, val) {
+      var html = "<li class=\"list-group-item d-flex justify-content-between align-items-center\">\n                            ".concat(val.title, "\n                            <div>\n                            <span class=\"badge badge-pill badge-light\">Edit</span>\n                            <span class=\"badge badge-pill badge-light\">Delete</span>\n                            </div>\n                        </li>");
+      $('ul#task-list').prepend(html);
+    });
+  }
+}
+
+function refreshProjectsList() {}
 
 /***/ }),
 

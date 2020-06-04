@@ -7,33 +7,12 @@ $(document).ready(function () {
     // init the fancy number value input
     $("input[type='number']").inputSpinner();
     // get the tasks for default project
-    $.ajax({
-        url: "/task/byProject/" + $('#project-select-for-view').val(),
-        contentType: "application/json",
-        dataType: 'json',
-        success: function (result) {
-            modifyTasksHTML(result)
-        }
-    });
+    getTasksByProject($('#project-select-for-view').val())
 
 
     // make the list sortable
     const taskList = document.getElementById('task-list');
     Sortable.create(taskList);
-
-    // display task blueprint
-    function modifyTasksHTML(tasks) {
-        $.each(tasks.tasks, function (i, val) {
-            let html = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                            ${val.title}
-                            <div>
-                            <span class="badge badge-pill badge-light">Edit</span>
-                            <span class="badge badge-pill badge-light">Delete</span>
-                            </div>
-                        </li>`;
-            $('ul#task-list').prepend(html)
-        })
-    }
 
     // add new task
     $('#add-new-task-button').click(function (e) {
@@ -89,6 +68,50 @@ $(document).ready(function () {
         });
     });
 
+    // select poject to display
+    $("#project-select-for-view").change(function(){
+       console.log('val', $(this).val())
+        getTasksByProject($(this).val())
+    });
+
 });
 
+// get tasks
+function getTasksByProject(projectId){
+    $.ajax({
+        url: "/task/byProject/" + projectId,
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (result) {
+            modifyTasksHTML(result)
+        }
+    });
+}
+// display task blueprint
+function modifyTasksHTML(tasks) {
+    // remove tasks view first
+    $('#task-list').empty()
+
+    if (tasks.tasks.length == 0){
+        let html = `<div class="alert alert-info" role="alert">
+                      No tasks in this project! Is it good or bad?
+                    </div>`
+        $('ul#task-list').prepend(html)
+    } else {
+        $.each(tasks.tasks, function (i, val) {
+            let html = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${val.title}
+                            <div>
+                            <span class="badge badge-pill badge-light">Edit</span>
+                            <span class="badge badge-pill badge-light">Delete</span>
+                            </div>
+                        </li>`;
+            $('ul#task-list').prepend(html)
+        })
+    }
+}
+
+function refreshProjectsList() {
+
+}
 

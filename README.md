@@ -23,7 +23,7 @@ Although it became a focus on JavaScript
 - npm 
 
 ### Instructions
-1. Go to .env file
+1. Go to .env file (use .env.example if you don't have the file)
 2. Change DB_CONNECTION settings to the database you run.
 3. Open Terminal in the folder
 4. Run ``` npm insall ```
